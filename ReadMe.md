@@ -21,23 +21,24 @@ Use this in the folder containing the Snake-Binary
 * (/) use suited characters
 
 ### Draw Snakehead to a Cursorpositopn
-* ( ) given as Row-Col-Vector
+* (/) given as Row-Col-Vector
 
 ### Steer the Snake
-* ( ) trough arrow keys left/right
+* (/) trough arrow keys left/right
 
 ### Move the Snake
-* ( ) by a static framerate
-* ( ) increase the framerate when the Snake grows
+* (/) by a static framerate
+* (/) increase the framerate when the Snake grows
 
 ### "Eat Fruit"
-* ( ) Fruit appears at random position
-* ( ) let the Snake grow
-* ( ) remember 
-* ( ) increase Score by 1
+* (/) Fruit appears at random position
+* (/) let the Snake grow
+* (/) increase Score by 1
 
 ### Collisionrecognition with Wall and Snake
-* ( ) draw "Walls" as obstacles
+* (/) draw "Walls" as obstacles
+* (/) end game when the snake hit the wall
+* (/) end game also when snake hits hisself
 
 ## Styleguide
 a little Styleguide to get a constant naming

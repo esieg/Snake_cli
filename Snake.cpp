@@ -21,9 +21,15 @@ private:
     int direction = 0; // current direction
     int status = RUNNING; // status of the game
     std::mutex mtx; // mutex for thread-safe access
+    bool simple;
  
 public:
     bool replay = false;
+
+    //Constructor
+    SNAKE(bool simplearg) {
+        simple = simplearg;
+    }
 
     void clearScreen() {
         std::cout << "\033[2J\033[H"; // Clear Screen and position the Cursor
@@ -109,13 +115,30 @@ public:
  
             // Use a mutex to ensure thread-safe access to direction
             std::lock_guard<std::mutex> lock(mtx);
-            switch (input) {
-                case KEY_LEFT:
-                    direction = (direction + 1) % 4;
-                    break;
-                case KEY_RIGHT:
-                    direction = (direction + 3) % 4;
-                    break;
+            if(simple) {
+                switch (input) {
+                    case KEY_LEFT:
+                        direction = 3;
+                        break;
+                    case KEY_RIGHT:
+                        direction = 1;
+                        break;
+                    case KEY_UP:
+                        direction = 2;
+                        break;
+                    case KEY_DOWN:
+                        direction = 0;
+                        break;
+                }
+            } else {
+                switch (input) {
+                    case KEY_LEFT:
+                        direction = (direction + 1) % 4;
+                        break;
+                    case KEY_RIGHT:
+                        direction = (direction + 3) % 4;
+                        break;
+                }
             }
         }
  
@@ -136,13 +159,13 @@ public:
         });
  
         while (status == RUNNING) {
+            timeControl();
             clearScreen();
             drawFruit();
             drawSnake();
             drawWalls();
             checkCollisions();
             moveSnake();
-            timeControl();
             std::cout << std::flush; // Needed for a stable drawing
         }
  
@@ -183,11 +206,19 @@ public:
         askReplay();
     }
 };
- 
-int main() {
+
+int main(int argc, char* argv[]) {
     bool replay = false;
+    bool simplearg = false;
+
+    for(int ac = 1; ac < argc; ++ac) {
+        if(strcmp(argv[ac], "-s") == 0 || strcmp(argv[ac], "--simple") == 0) {
+            simplearg = true;
+        }
+    }
+
     do {
-        SNAKE snake;
+        SNAKE snake(simplearg);
         snake.playGame();
         snake.endGame(snake);
         replay = snake.replay;

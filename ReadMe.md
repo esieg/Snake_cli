@@ -6,8 +6,11 @@ I use simple g++ for compiling and add the ncurses-Header
 > g++ -std=c++17 -o Snake Snake.cpp -lncurses
 
 ## Start the game
-Use this in the folder containing the Snake-Binary
+Use this in the folder containing the Snake-Binary (Terminal should have at least 42x42 [columnsxrows])
 > ./Snake
+or 
+> ./Snake -s/--simple
+to start the game in the simple mode. Here you can give the snake directly the direction you want here, no need for a right/left steering with perspectives. 
 
 ## Steps
 ### Clear Screen
